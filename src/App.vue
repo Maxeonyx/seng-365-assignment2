@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="top-panel">
-      <router-link :to="{ name: '', params: {} }"><img src="./assets/logo.gif" width="150" height="150"/></router-link>
+      <router-link :to="{ name: '', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
       <h1 id="title">CRuDfund</h1>
     </div>
     <div id="main">
