@@ -3,6 +3,7 @@
     <div id="top-panel">
       <router-link :to="{ name: '', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
       <h1 id="title">CRuDfund</h1>
+      <AdaptivePlaceholder v-model="searchText" required="true" title="Search"></AdaptivePlaceholder>
     </div>
       <div id="nav-panel">
         <ul>
@@ -11,20 +12,32 @@
         </ul>
       </div>
     <div id="main">
-      <router-view/>
+      <router-view :search-text="searchText"/>
     </div>
   </div>
 </template>
 
 <script>
+import AdaptivePlaceholder from "./components/AdaptivePlaceholder.vue"
+
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      searchText: ""
+    }
+  },
+  components: {
+    AdaptivePlaceholder
+  }
 }
 </script>
 
 <style lang="scss">
+@import "./css/variables.scss";
+
 body, html {
-  height: 100%;
+  background-color: $col-light-main;
   margin: 0px;
   padding: 0;
 }
@@ -36,12 +49,11 @@ body, html {
 }
 
 #app {
-  height: 100%;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $col-three;
   margin-top: 0px;
 }
 
@@ -50,16 +62,23 @@ body, html {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 0px;
+  padding: 20px;
   color: #ddd;
-  background-color: #303030;
+  background-color: $col-dark-main;
 }
 
 #nav-panel {
+  border-bottom: 3px solid $col-light-2;
   font-size: 20pt;
-  background: #404040;
-  color: #ddd;
+  background: lighten($col-dark-2, 5);
+  color: $col-dark-main;
   width: 100%;
+}
+#nav-panel > a {
+  color: lighten($col-dark-main, 20);
+}
+#nav-panel > a:hover {
+  color: lighten($col-dark-main, 20);
 }
 
 #top-panel > h1 {
@@ -79,5 +98,34 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
+a {
+  color: $col-three;
+  text-decoration: none;
+}
+a:hover {
+text-decoration: none;
+  color: lighten($col-three,10);
+}
+
+a:link {
+text-decoration: none;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 
 </style>
