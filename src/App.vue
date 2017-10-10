@@ -4,29 +4,21 @@
       <router-link :to="{ name: '', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
       <h1 id="title">CRuDfund</h1>
     </div>
-    <div id="main">
-      <div id="side-panel">
+      <div id="nav-panel">
         <ul>
             <li><router-link :to="{ name: 'home' }">Home</router-link></li>
+            <li><router-link :to="{ name: 'projects' }">Projects</router-link></li>
         </ul>
       </div>
-      <div id="main-panel">
-        <router-view/>
-      </div>
-
+    <div id="main">
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-
+  name: 'app'
 }
 </script>
 
@@ -38,14 +30,12 @@ body, html {
 }
 
 #title {
-  justify-content:space-around;
   font-size: 80pt;
   font-family: 'Reenie Beanie', cursive;
+  padding-right: 100px;
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -58,32 +48,22 @@ body, html {
 #top-panel {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   margin: 0px;
   color: #ddd;
   background-color: #303030;
 }
 
-#side-panel {
+#nav-panel {
   font-size: 20pt;
   background: #404040;
   color: #ddd;
-  width: 10%;
-  height: 100%;
-  align-self: flex-start;
+  width: 100%;
 }
 
 #top-panel > h1 {
   margin: 0px;
-}
-#main-panel {
-  margin: 30px;
-}
-
-#main {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
 }
 
 h1, h2 {
@@ -100,7 +80,4 @@ li {
   margin: 0 10px;
 }
 
-a {
-  color: #b33;
-}
 </style>
