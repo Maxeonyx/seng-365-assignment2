@@ -1,8 +1,15 @@
 
-$col-dark-main: #303030;
-$col-light-main: #dddddd;
-$col-three: #e87e22;
-
+$col-dark: #303030;
 $col-dark-2: darken(#303030, 10);
-$col-light-2: darken(#dddddd, 50);
-$col-three-2: darken(#e87e22, 10);
+
+$col-light: #dddddd;
+$col-light-2: darken(#dddddd, 20);
+$col-light-3: #ffffff;
+
+$col-orange: #e87e22;
+$col-orange-2: darken(#e87e22, 10);
+$col-orange-3: darken(#e87e22, 20);
+
+$col-blue: #4070e0;
+
+$col-green: #23a045;

@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <div id="top-panel">
-      <router-link :to="{ name: '', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
+      <router-link :to="{ name: 'home', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
       <h1 id="title">CRuDfund</h1>
-      <AdaptivePlaceholder v-model="searchText" required="true" title="Search"></AdaptivePlaceholder>
+      <AdaptivePlaceholder id="searchBox" theme="dark" v-model="searchText" required="true" title="Search" alt-title="Search"></AdaptivePlaceholder>
     </div>
       <div id="nav-panel">
         <ul>
-            <li><router-link :to="{ name: 'home' }">Home</router-link></li>
-            <li><router-link :to="{ name: 'projects' }">Projects</router-link></li>
+            <li class="link"><router-link :to="{ name: 'home' }">Home</router-link></li>
+            <li class="link login"><router-link :to="{ name: 'loginRegister' }">Login or Register</router-link></li>
         </ul>
       </div>
     <div id="main">
@@ -37,9 +37,13 @@ export default {
 @import "./css/variables.scss";
 
 body, html {
-  background-color: $col-light-main;
+  background-color: $col-light;
   margin: 0px;
   padding: 0;
+}
+
+body {
+  overflow-y: scroll;
 }
 
 #title {
@@ -49,11 +53,10 @@ body, html {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $col-three;
   margin-top: 0px;
 }
 
@@ -64,33 +67,38 @@ body, html {
   align-items: center;
   padding: 20px;
   color: #ddd;
-  background-color: $col-dark-main;
+  background-color: $col-dark;
 }
 
 #nav-panel {
+  font-family: 'Reenie Beanie', cursive;
   border-bottom: 3px solid $col-light-2;
-  font-size: 20pt;
+  font-size: 40pt;
   background: lighten($col-dark-2, 5);
-  color: $col-dark-main;
+  color: $col-dark;
   width: 100%;
 }
 #nav-panel > a {
-  color: lighten($col-dark-main, 20);
+  color: lighten($col-dark, 20);
 }
 #nav-panel > a:hover {
-  color: lighten($col-dark-main, 20);
+  color: lighten($col-dark, 20);
+}
+
+.login {
+  float: right;
 }
 
 #top-panel > h1 {
   margin: 0px;
 }
 
-h1, h2 {
-  font-weight: normal;
+#searchBox {
+  align-self: flex-end;
 }
 
 ul {
-  list-style-type: none;
+  margin: 0;
   padding: 0;
 }
 
@@ -99,32 +107,34 @@ li {
   margin: 0 10px;
 }
 
-a {
-  color: $col-three;
+li.link {
+  color: $col-orange;
+}
+li.link:hover {
+  color: lighten($col-orange, 20);
+}
+
+a.router-link-exact-active {
+  color: $col-blue !important;
+}
+
+a, a:hover, a:link, a:active, a:visited {
+  color: inherit;
   text-decoration: none;
 }
-a:hover {
-text-decoration: none;
-  color: lighten($col-three,10);
+
+.card {
+  padding: 0;
+  margin: 5px;
+  box-shadow: 3px 3px 5px $col-light-2;
+  background-color: $col-dark;
+  color: $col-light;
+  border-radius: 5px;
+  border: 1px solid $col-dark-2;
 }
 
-a:link {
-text-decoration: none;
-}
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
+h2 {
+  font-family: 'Architects Daughter', cursive;
 }
 
 
