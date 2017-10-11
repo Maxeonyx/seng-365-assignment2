@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import "../css/variables.scss";
 
 .outer-card {
@@ -47,8 +47,9 @@ export default {
 }
 
 .inner-card:hover {
-  border-top-width: 5px;
-  padding-bottom: 6px;
+  // border-top-width: 5px;
+  // padding-bottom: 6px;
+  box-shadow: 1px 1px 5px $col-dark;
 }
 
 .card-image {

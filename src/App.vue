@@ -2,7 +2,7 @@
   <div id="app">
     <div id="top-panel">
       <router-link :to="{ name: 'home', params: {} }"><img src="./assets/logo/logo.gif" width="150" height="150"/></router-link>
-      <h1 id="title">CRuDfund</h1>
+      <h1 id="title"><span id="crud">CRuD</span>fund</h1>
       <AdaptivePlaceholder id="searchBox" theme="dark" v-model="searchText" required="true" title="Search" alt-title="Search"></AdaptivePlaceholder>
     </div>
       <div id="nav-panel">
@@ -47,9 +47,12 @@ body {
 }
 
 #title {
-  font-size: 80pt;
+  flex: 1;
+  font-size: 70pt;
   font-family: 'Reenie Beanie', cursive;
-  padding-right: 100px;
+}
+#crud {
+  font-size: 105pt;
 }
 
 #app {
@@ -62,9 +65,9 @@ body {
 
 #top-panel {
   display: flex;
+  flex-wrap:wrap;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   padding: 20px;
   color: #ddd;
   background-color: $col-dark;
@@ -86,7 +89,6 @@ body {
 }
 
 .login {
-  float: right;
 }
 
 #top-panel > h1 {
@@ -126,7 +128,7 @@ a, a:hover, a:link, a:active, a:visited {
 .card {
   padding: 0;
   margin: 5px;
-  box-shadow: 3px 3px 5px $col-light-2;
+  box-shadow: 4px 4px 6px $col-dark;
   background-color: $col-dark;
   color: $col-light;
   border-radius: 5px;
@@ -135,6 +137,16 @@ a, a:hover, a:link, a:active, a:visited {
 
 h2 {
   font-family: 'Architects Daughter', cursive;
+}
+
+.button {
+  font-family: 'Architects Daughter', cursive;
+  padding: 5px 15px;
+  font-size: 15pt;
+  color: $col-light !important;
+  border-radius: 0.3em;
+  border: 3px solid $col-blue-2;
+  background-color: $col-blue;
 }
 
 

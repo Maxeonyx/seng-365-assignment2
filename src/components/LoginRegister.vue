@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div id="login" class="col-sm-12 col-md-3 offset-md-3">
-        <h2>Login</h2>
+      <div id="login" class="col-sm-12 col-md-4 offset-md-2">
+        <h2 class="subtitle">Login</h2>
         <form action="#">
           <AdaptivePlaceholder theme="light" v-model="username" required="true" title="Username" alt-title="Username" />
         </form>
@@ -10,10 +10,12 @@
       <div class="col-xs-1 or">
         OR
       </div>
-      <div id="register" class="col-sm-12 col-md-3">
-        <h2>Register</h2>
+      <div id="register" class="col-sm-12 col-md-4 subtitle">
+        <h2 class="subtitle">Register</h2>
         <form action="#">
           <AdaptivePlaceholder theme="light" v-model="username" required="true" title="Username" alt-title="Username" />
+          <AdaptivePlaceholder theme="light" v-model="password" required="true" title="Password" alt-title="Password" />
+          <AdaptivePlaceholder theme="light" v-model="confirmPassword" required="true" title="Confirm Password" alt-title="Confirm Password" />
           <AdaptivePlaceholder type="email" theme="light" v-model="email" required="true" title="Email" alt-title="Email" />
           <router-link class="button" :to="{ name: redirectTo, params: redirectParams }">Register</router-link>
         </form>
@@ -48,17 +50,6 @@ export default {
 
 @import '../css/variables.scss';
 
-.button {
-  font-family: 'Architects Daughter', cursive;
-  padding: 5px;
-  font-size: 15pt;
-  color: $col-light !important;
-  margin: 0px 15px;
-  border-radius: 0.3em;
-  border: 2px solid $col-dark;
-  background-color: $col-blue;
-}
-
 .or {
   font-family: 'Architects Daughter', cursive;
   color: $col-dark;
@@ -66,6 +57,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   font-size: 15pt;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 </style>

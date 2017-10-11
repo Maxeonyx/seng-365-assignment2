@@ -12,7 +12,7 @@ export default {
   name: "adaptivePlaceholder",
   props: {
     'theme': String,
-    'required': Boolean,
+    'required': String,
     'title': String,
     'altTitle': String,
     'value': String,
@@ -62,7 +62,7 @@ export default {
   );
   .adaptive-label {
     font-family: 'Architects Daughter', cursive;
-    font-size: 1.6em !important;
+    font-size: 1.5em !important;
   }
   .adaptive-input.light {
     width: 10em;

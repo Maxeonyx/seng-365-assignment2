@@ -3,13 +3,17 @@ $col-dark: #303030;
 $col-dark-2: darken(#303030, 10);
 
 $col-light: #dddddd;
-$col-light-2: darken(#dddddd, 20);
-$col-light-3: #ffffff;
+$col-light-2: darken($col-light, 10);
+$col-light-3: lighten($col-light, 10);
 
 $col-orange: #e87e22;
-$col-orange-2: darken(#e87e22, 10);
-$col-orange-3: darken(#e87e22, 20);
+$col-orange-2: darken($col-orange, 10);
+$col-orange-3: darken($col-orange, 20);
 
-$col-blue: #4070e0;
+$col-blue: #3868e0;
+$col-blue-2: darken($col-blue, 10);
+$col-blue-3: lighten($col-blue, 10);
 
 $col-green: #23a045;
+$col-green-2: darken($col-green, 10);
+$col-green-3: lighten($col-green, 10);

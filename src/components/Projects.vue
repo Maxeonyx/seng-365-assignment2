@@ -1,7 +1,7 @@
 <template>
   <div class="container project-container">
     <div class="row">
-      <ProjectCard v-for="project in searchedProjects" :project="project"/>
+      <ProjectCard v-for="project in searchedProjects" :key="project.id" :project="project"/>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     updateSearchedProjects() {
-      console.log("here");
       this.searchedProjects = this.projects.filter((project) => {
         return (project.title + project.subtitle + project.description).includes(this.searchText);
       });
@@ -44,7 +43,6 @@ export default {
       url: 'http://localhost:4941/api/v2/projects',
       method: 'GET',
       success: (data, error) => {
-        console.log(data)
         this.projects = data;
       },
       error: (xhr, status, error) => {
