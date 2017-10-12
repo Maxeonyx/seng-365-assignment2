@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import VueModal from 'vue-js-modal'
 
 import Projects from './components/Projects.vue'
 import LoginRegister from './components/LoginRegister.vue'
 import Project from './components/Project.vue'
 
 Vue.use(VueRouter)
+Vue.use(VueModal)
 
 const router = new VueRouter({
   mode: 'history',

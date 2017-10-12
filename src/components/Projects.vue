@@ -54,7 +54,7 @@ export default {
 
     $(window).scroll(_.debounce(() => {
       // if ()
-    }), 100);
+    }, 100));
   },
   components: {
     ProjectCard

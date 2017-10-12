@@ -1,12 +1,10 @@
 <template>
   <div id="login">
     <h2 class="subtitle">Login</h2>
-    <form action="#">
-      <AdaptivePlaceholder theme="light" v-model="username" required="true" title="Username" alt-title="Username" />
-      <AdaptivePlaceholder theme="light" v-model="password" required="true" title="Password" alt-title="Password" />
-      <div v-if="error" class="errorBox">{{error}}</div>
-      <a :href="redirectTo" class="button" v-on:click="login()">Login</a>
-    </form>
+    <AdaptivePlaceholder theme="light" v-model="username" required="true" title="Username" alt-title="Username" />
+    <AdaptivePlaceholder theme="light" type="password" v-model="password" required="true" title="Password" alt-title="Password" />
+    <div v-if="error" class="error-box">{{error}}</div>
+    <a :href="redirectTo" class="button" v-on:click="login($event)">Login</a>
   </div>
 </template>
 
@@ -23,7 +21,9 @@ export default {
     },
     redirectParams: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -34,19 +34,27 @@ export default {
     }
   },
   methods: {
-    login() {
+    login(e) {
+      e.preventDefault();
       $.ajax({
         url: "http://localhost:4941/api/v2/users/login?" + $.param({
           username: this.username,
-          password: this.password
+          password: this.password,
+          email: ''
         }),
         method: 'POST',
+        contentType: 'application/json',
         success: (data) => {
-          localStorage.setItem('authToken', data.token)
-          this.$router.push({name: redirectTo, params: redirectParams})
+          this.$emit('login', {
+            session: data,
+            redirect: {
+              to: this.redirectTo,
+              params: this.redirectParams
+            }
+          });
         },
         error: (xhr, status, error) => {
-          this.error = status;
+          this.error = "Username or Password incorrect.";
         }
       })
     }
@@ -62,6 +70,11 @@ export default {
 
 <style scoped lang="scss">
 
-
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="row">
-      <Login class="col-sm-12 col-md-4 offset-md-2" :redirect-to="redirectTo" :redirect-params="redirectParams" />
+      <Login @login="login($event)" class="col-sm-12 col-md-4 offset-md-2" :redirect-to="redirectTo" :redirect-params="redirectParams" />
       <div class="col-xs-12 col-md-1 or">
         OR
       </div>
-      <Register class=" col-sm-offset-2 col-md-4" :redirect-to="redirectTo" :redirect-params="redirectParams" />
+      <Register @login="login($event)" class=" col-sm-offset-2 col-md-4" :redirect-to="redirectTo" :redirect-params="redirectParams" />
     </div>
   </div>
 </template>
@@ -24,7 +24,14 @@ export default {
     },
     redirectParams: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
+    }
+  },
+  methods: {
+    login(data) {
+      this.$emit('login', data)
     }
   },
   components: {
@@ -46,7 +53,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 15pt;
+  font-size: 1.7em;
 }
 
 </style>

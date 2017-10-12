@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+
+    <PledgeModal :project="project" />
+
     <div class="row ">
       <div class="col-md-12">
         <div class="card">
@@ -27,9 +30,12 @@
           </div>
           <div class="pledge">
             <div>Every little bit makes a difference!</div>
-          <router-link class="pledge-button button" :to="{ name: 'pledge', params: {} }">Pledge</router-link>
+          <a href="#" class="pledge-button button" v-on:click="pledge()">Pledge</a>
           </div>
-          <div>
+          <div class="recent-pledges">
+            <div v-for="pledge in project.backers">
+              {{pledge.username}}
+            </div>
           </div>
         </div>
       </div>
@@ -47,6 +53,7 @@
       </div>
       <div v-for="reward in sortedRewards" class="col-md-4 col-sm-6 col-xs-12">
         <div class="card">
+          {{reward.amount}}
           {{reward.description}}
         </div>
       </div>
@@ -57,13 +64,25 @@
 <script>
 import _ from 'lodash';
 import $ from 'jquery';
+import PledgeModal from './PledgeModal.vue'
 
 export default {
   name: 'project',
   props: ['id'],
   data() {
     return {
-      project: {}
+      project: {
+        creators: [],
+        progress: {
+          currentPledged: 0,
+          numberOfBackers: 0
+        },
+        target: 1,
+        title: "",
+        subtitle: "",
+        description: "",
+        rewards: []
+      }
     }
   },
   computed: {
@@ -80,7 +99,6 @@ export default {
     },
     /** current funding percentage */
     percentFunded() {
-      return 69; //TODO remove
       return this.project.progress.currentPledged / this.project.target * 100;
     },
     sortedRewards() {
@@ -98,6 +116,14 @@ export default {
         console.log('failed: ' + error)
       }
     })
+  },
+  methods: {
+    pledge() {
+      this.$modal.show('pledge-modal')
+    }
+  },
+  components: {
+    PledgeModal
   }
 }
 </script>
@@ -154,7 +180,7 @@ img {
   font-family: 'Architects Daughter', cursive;
   font-size: 16pt;
   height: 100%;
-  padding: 5%;
+  padding: 5% 0%;
   padding-right: 3px;
   color: $col-light;
   text-align: right;

@@ -6,25 +6,57 @@
       <AdaptivePlaceholder id="searchBox" theme="dark" v-model="searchText" required="true" title="Search" alt-title="Search"></AdaptivePlaceholder>
     </div>
     <div id="nav-panel">
-      <ul>
-          <li class="link"><router-link :to="{ name: 'home' }">Home</router-link></li>
-          <li class="link login"><router-link :to="{ name: 'loginRegister' }">Login or Register</router-link></li>
-      </ul>
+      <router-link class="link" :to="{ name: 'home' }">Home</router-link>|
+      <router-link v-show="!loggedIn" class="link link-login" :to="{ name: 'loginRegister' }">Login or Register</router-link>
+      <a href="/loginRegister" v-on:click="logout($event)" v-show="loggedIn" class="link link-login">Logout</a>
     </div>
     <div id="main">
-      <router-view :search-text="searchText"/>
+      <router-view @login="login($event)" :search-text="searchText"/>
     </div>
   </div>
 </template>
 
 <script>
-import AdaptivePlaceholder from "./components/AdaptivePlaceholder.vue"
+import $ from 'jquery';
+import AdaptivePlaceholder from "./components/AdaptivePlaceholder.vue";
 
 export default {
   name: 'app',
   data() {
     return {
-      searchText: ""
+      searchText: "",
+      loggedIn: false,
+      session: null
+    }
+  },
+  mounted() {
+    this.checkLogin();
+  },
+  methods: {
+    checkLogin() {
+      this.session = JSON.parse(localStorage.getItem('session'));
+      this.loggedIn = !!this.session;
+    },
+    login(data) {
+      console.log('login')
+      localStorage.setItem('session', JSON.stringify(data.session));
+      this.checkLogin();
+      this.$router.push({name: data.redirect.to, params: data.redirect.params})
+    },
+    logout(e) {
+      e.preventDefault();
+      $.ajax({
+        url: "http://localhost:4941/api/v2/users/logout",
+        method: 'POST',
+        contentType: 'application/json',
+        headers: {'X-Authorization': this.session.token},
+        success: (data) => {
+          localStorage.setItem('session', null)
+          this.checkLogin();
+          this.$router.push({name: 'loginRegister', params: {} })
+        },
+        error: (xhr, status, error) => {}
+      })
     }
   },
   components: {
@@ -47,7 +79,7 @@ body {
 }
 
 #title {
-  flex: 1;
+  //flex: 1;
   font-size: 70pt;
   font-family: 'Reenie Beanie', cursive;
 }
@@ -67,13 +99,15 @@ body {
   display: flex;
   flex-wrap:wrap;
   flex-direction: row;
-  justify-content: space-between;;
+  justify-content: space-between;
   padding: 20px;
   color: #ddd;
   background-color: $col-dark;
 }
 
 #nav-panel {
+  display: flex;
+  justify-content: center;
   font-family: 'Reenie Beanie', cursive;
   border-bottom: 3px solid $col-light-2;
   font-size: 40pt;
@@ -82,13 +116,8 @@ body {
   width: 100%;
 }
 #nav-panel > a {
-  color: lighten($col-dark, 20);
-}
-#nav-panel > a:hover {
-  color: lighten($col-dark, 20);
-}
-
-.login {
+  margin: 0 30px;
+  color: $col-orange;
 }
 
 #top-panel > h1 {
@@ -106,13 +135,13 @@ ul {
 
 li {
   display: inline-block;
-  margin: 0 10px;
+  //margin: 0 10px;
 }
 
-li.link {
+.link {
   color: $col-orange;
 }
-li.link:hover {
+.link:hover {
   color: lighten($col-orange, 20);
 }
 
@@ -129,7 +158,7 @@ a.router-link-exact-active {
 a, a:hover, a:link, a:active, a:visited {
   color: inherit;
   text-decoration: none;
-}   Generic App-wide css
+}
 
 .subtitle {
   margin-bottom: 20px;
@@ -159,6 +188,19 @@ h2 {
   border-radius: 0.3em;
   border: 3px solid $col-blue-2;
   background-color: $col-blue;
+}
+
+.error-box {
+  font-size: 1em;
+  font-weight: bold;
+  border: 3px solid $col-red-2;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  color: $col-dark;
+  width: 15em;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 3px;
 }
 
 
