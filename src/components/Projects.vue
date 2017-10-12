@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import $ from 'jquery';
 import ProjectCard from './ProjectCard.vue'
 
@@ -39,6 +40,7 @@ export default {
     }
   },
   mounted() {
+    /* Get initial set of projects from the API */
     $.ajax({
       url: 'http://localhost:4941/api/v2/projects',
       method: 'GET',
@@ -48,7 +50,11 @@ export default {
       error: (xhr, status, error) => {
         console.log('failed: ' + error)
       }
-    })
+    });
+
+    $(window).scroll(_.debounce(() => {
+      // if ()
+    }), 100);
   },
   components: {
     ProjectCard

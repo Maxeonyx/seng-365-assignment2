@@ -1,7 +1,7 @@
 <template>
-  <div class="outer-card col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  <div class="outer-card col-xs-12 col-sm-12 col-md-6 col-lg-4">
     <router-link :to="{ name: 'project', params: {id: project.id, project: project} }" class="card inner-card">
-      <div class="card-image" v-bind:style="'background: no-repeat url(http://localhost:4941/api/v2' + project.imageUri + ');'"/>
+      <div class="card-image" :style="'background: center no-repeat url(http://localhost:4941/api/v2' + project.imageUri + ');'"/>
       <h2 class="card-title">
         {{project.title}}
       </h2>
@@ -9,7 +9,7 @@
         {{project.subtitle}}
       </div>
       <div class="progress fund-progress-outer">
-        <div class="progress-bar fund-progress-inner" v-bind:style="'width:'+progress+'%'">
+        <div class="progress-bar fund-progress-inner" :style="'width:'+progress+'%'">
           {{progress}}% Funded
         </div>
       </div>
@@ -49,17 +49,15 @@ export default {
 .inner-card:hover {
   // border-top-width: 5px;
   // padding-bottom: 6px;
-  box-shadow: 1px 1px 5px $col-dark;
+  box-shadow: 1px 1px 4px $col-dark;
 }
 
 .card-image {
   width:100%;
-  flex: 0;
   padding-top: 300px;
   border-bottom: 4px solid $col-orange-2;
   border-radius: 5px;
   background-color: $col-dark;
-  height: auto;
 }
 
 .card-title {

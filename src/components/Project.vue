@@ -4,6 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <h2 class="project-title">{{project.title}}</h2>
+          Created on {{new Date(project.creationDate).toLocaleString({formatMatcher: 'basic'})}} by {{creatorString}}
           <hr>
           <p>{{project.subtitle}}</p>
         </div>
@@ -15,9 +16,13 @@
       </div>
       <div class="col-md-6">
         <div class="card project-stats">
+          <h2>${{project.progress.currentPledged.toLocaleString()}} Pledged of ${{project.target.toLocaleString()}}</h2>
+          <br/>
+          <h2>{{project.progress.numberOfBackers.toLocaleString()}} Backers </h2>
+          <br/>
           <div class="progress fund-progress-outer">
-            <div class="progress-bar fund-progress-inner" v-bind:style="'width:'+progress+'%'">
-              {{progress}}% Funded
+            <div class="progress-bar fund-progress-inner" v-bind:style="'width:'+percentFunded+'%'">
+              {{percentFunded}}% Funded
             </div>
           </div>
           <div class="pledge">
@@ -28,9 +33,21 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="card project-description">
+          <hr/>
           {{project.description}}
+          <hr/>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <h2 class="project-title"> Rewards </h2>
+        </div>
+      </div>
+      <div v-for="reward in sortedRewards" class="col-md-4 col-sm-6 col-xs-12">
+        <div class="card">
+          {{reward.description}}
         </div>
       </div>
     </div>
@@ -38,6 +55,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import $ from 'jquery';
 
 export default {
@@ -49,8 +67,25 @@ export default {
     }
   },
   computed: {
-    progress() {
-      return Math.floor(Math.random()*100)
+    /** grammatically correct list of creators */
+    creatorString() {
+      let copy = this.project.creators.map(x => x.username);
+      if (copy.length > 1) {
+        let lastTwo = copy.slice(copy.length-2, copy.length).join(" and ");
+        copy.splice(copy.length-1);
+        copy.splice(copy.length-1);
+        copy.push(lastTwo);
+      }
+      return copy.join(", ");
+    },
+    /** current funding percentage */
+    percentFunded() {
+      return 69; //TODO remove
+      return project.progress.currentPledged / project.target * 100;
+    },
+    sortedRewards() {
+      console.log(project);
+      return _.sortBy(project.rewards, ['amount']);
     }
   },
   mounted() {
@@ -101,7 +136,7 @@ img {
 }
 
 .pledge-button {
-  align-self: flex-end;
+  font-size: 24pt;
 }
 
 .project-stats {

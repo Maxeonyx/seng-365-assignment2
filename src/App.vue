@@ -5,12 +5,12 @@
       <h1 id="title"><span id="crud">CRuD</span>fund</h1>
       <AdaptivePlaceholder id="searchBox" theme="dark" v-model="searchText" required="true" title="Search" alt-title="Search"></AdaptivePlaceholder>
     </div>
-      <div id="nav-panel">
-        <ul>
-            <li class="link"><router-link :to="{ name: 'home' }">Home</router-link></li>
-            <li class="link login"><router-link :to="{ name: 'loginRegister' }">Login or Register</router-link></li>
-        </ul>
-      </div>
+    <div id="nav-panel">
+      <ul>
+          <li class="link"><router-link :to="{ name: 'home' }">Home</router-link></li>
+          <li class="link login"><router-link :to="{ name: 'loginRegister' }">Login or Register</router-link></li>
+      </ul>
+    </div>
     <div id="main">
       <router-view :search-text="searchText"/>
     </div>
@@ -67,7 +67,7 @@ body {
   display: flex;
   flex-wrap:wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;;
   padding: 20px;
   color: #ddd;
   background-color: $col-dark;
@@ -77,7 +77,7 @@ body {
   font-family: 'Reenie Beanie', cursive;
   border-bottom: 3px solid $col-light-2;
   font-size: 40pt;
-  background: lighten($col-dark-2, 5);
+  background: $col-dark-2;
   color: $col-dark;
   width: 100%;
 }
@@ -116,6 +116,12 @@ li.link:hover {
   color: lighten($col-orange, 20);
 }
 
+
+
+///***********************
+///
+
+
 a.router-link-exact-active {
   color: $col-blue !important;
 }
@@ -123,12 +129,17 @@ a.router-link-exact-active {
 a, a:hover, a:link, a:active, a:visited {
   color: inherit;
   text-decoration: none;
+}   Generic App-wide css
+
+.subtitle {
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .card {
   padding: 0;
   margin: 5px;
-  box-shadow: 4px 4px 6px $col-dark;
+  box-shadow: 3px 3px 6px $col-dark;
   background-color: $col-dark;
   color: $col-light;
   border-radius: 5px;
