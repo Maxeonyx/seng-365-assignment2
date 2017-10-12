@@ -81,11 +81,10 @@ export default {
     /** current funding percentage */
     percentFunded() {
       return 69; //TODO remove
-      return project.progress.currentPledged / project.target * 100;
+      return this.project.progress.currentPledged / this.project.target * 100;
     },
     sortedRewards() {
-      console.log(project);
-      return _.sortBy(project.rewards, ['amount']);
+      return _.sortBy(this.project.rewards, ['amount']);
     }
   },
   mounted() {

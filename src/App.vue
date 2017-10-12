@@ -144,6 +144,7 @@ a, a:hover, a:link, a:active, a:visited {
   color: $col-light;
   border-radius: 5px;
   border: 1px solid $col-dark-2;
+  height: auto;
 }
 
 h2 {

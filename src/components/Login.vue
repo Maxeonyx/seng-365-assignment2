@@ -1,5 +1,5 @@
 <template>
-  <div id="login" class="col-sm-12 col-md-4 offset-md-2">
+  <div id="login">
     <h2 class="subtitle">Login</h2>
     <form action="#">
       <AdaptivePlaceholder theme="light" v-model="username" required="true" title="Username" alt-title="Username" />
