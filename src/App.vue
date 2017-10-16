@@ -8,10 +8,11 @@
     <div id="nav-panel">
       <router-link class="link" :to="{ name: 'home' }">Home</router-link>|
       <router-link v-show="!loggedIn" class="link link-login" :to="{ name: 'loginRegister' }">Login or Register</router-link>
+      <router-link v-show="loggedIn" class="link link-login" :to="{ name: 'createProject' }">Create Project</router-link>
       <a href="/loginRegister" v-on:click="logout($event)" v-show="loggedIn" class="link link-login">Logout</a>
     </div>
     <div id="main">
-      <router-view @login="login($event)" :search-text="searchText"/>
+      <router-view @login="login($event)" :session="session" :search-text="searchText"/>
     </div>
   </div>
 </template>
@@ -51,11 +52,17 @@ export default {
         contentType: 'application/json',
         headers: {'X-Authorization': this.session.token},
         success: (data) => {
-          localStorage.setItem('session', null)
+          localStorage.clear()
           this.checkLogin();
-          this.$router.push({name: 'loginRegister', params: {} })
+          this.$router.push({name: 'home', params: {} })
         },
-        error: (xhr, status, error) => {}
+        error: (xhr, status, error) => {
+          console.log(xhr);
+          if (xhr.status == 401) {
+            localStorage.setItem('session', null)
+            this.checkLogin();
+          }
+        }
       })
     }
   },
@@ -106,10 +113,13 @@ body {
 }
 
 #nav-panel {
+  position: sticky;
+  top: 0px;
+  z-index:1;
   display: flex;
   justify-content: center;
   font-family: 'Reenie Beanie', cursive;
-  border-bottom: 3px solid $col-light-2;
+  border-bottom: 3px solid #000;
   font-size: 40pt;
   background: $col-dark-2;
   color: $col-dark;
@@ -117,7 +127,6 @@ body {
 }
 #nav-panel > a {
   margin: 0 30px;
-  color: $col-orange;
 }
 
 #top-panel > h1 {
@@ -139,10 +148,8 @@ li {
 }
 
 .link {
-  color: $col-orange;
 }
 .link:hover {
-  color: lighten($col-orange, 20);
 }
 
 
@@ -152,11 +159,17 @@ li {
 
 
 a.router-link-exact-active {
-  color: $col-blue !important;
+  color: $col-orange !important;
 }
 
-a, a:hover, a:link, a:active, a:visited {
-  color: inherit;
+a {
+  color: $col-blue;
+}
+a:hover {
+  color: lighten($col-blue, 20);
+}
+a:link, a:active, a:visited {
+  color: $col-blue;
   text-decoration: none;
 }
 
@@ -180,6 +193,17 @@ h2 {
   font-family: 'Architects Daughter', cursive;
 }
 
+h3 {
+  font-family: 'Architects Daughter', cursive;
+}
+
+hr {
+  margin: 20px;
+  border-color: $col-orange-2;
+  border-width: 2px;
+}
+
+
 .button {
   font-family: 'Architects Daughter', cursive;
   padding: 5px 15px;
@@ -201,6 +225,54 @@ h2 {
   margin: 0;
   margin-bottom: 10px;
   padding: 3px;
+}
+
+input[type=checkbox] {
+  width: 1px;
+  height: 1px;
+  z-index: -1000;
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+}
+
+label.checkbox {
+  user-select: none;
+  vertical-align: middle;
+  display: inline-block;
+  border: 3px solid $col-dark;
+  border-radius: 5px;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+label.checkbox.light {
+  border: 3px solid $col-light;
+  background-color: $col-dark-2;
+}
+
+label.checkbox-label {
+  user-select: none;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+input[type=checkbox]:checked + label.checkbox {
+  background-color: $col-blue;
+}
+input[type=checkbox]:checked + label.checkbox.light {
+  background-color: $col-blue;
+}
+
+input[type=checkbox] + label.checkbox {
+  background-color: $col-light-2;
+}
+
+input[type=checkbox] + label.checkbox.light {
+  background-color: $col-dark-3;
 }
 
 

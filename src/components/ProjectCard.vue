@@ -55,7 +55,7 @@ export default {
 .card-image {
   width:100%;
   padding-top: 300px;
-  border-bottom: 4px solid $col-orange-2;
+  border-bottom: 4px solid $col-dark-2;
   border-radius: 5px;
   background-color: $col-dark;
 }
@@ -80,6 +80,7 @@ export default {
   padding-right: 3px;
   border-right: 3px solid $col-orange;
   background-color: $col-orange-3;
+  white-space: nowrap;
 }
 
 .card-description {

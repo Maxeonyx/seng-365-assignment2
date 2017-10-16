@@ -2,12 +2,15 @@
   <modal :name="name"
   transition="nice-modal-fade"
   :min-width="300"
-  :min-height="200"
   :delay="100"
   :adaptive="true"
-  :resizable="false"
-  :draggable="false">
-    <slot />
+  :resizable="true"
+  :draggable="false"
+  :scrollable="true"
+  height="auto"
+  :pivotY="0.3"
+  v-on:before-open="beforeOpen">
+    <slot/>
   </modal>
 </template>
 
@@ -25,11 +28,17 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      params: ""
+    }
   },
   computed: {},
   mounted() {},
-  methods: {},
+  methods: {
+    beforeOpen(e) {
+      this.$emit('before-open', e);
+    }
+  },
   components: {}
 }
 </script>
@@ -43,6 +52,9 @@ export default {
   border: 3px solid $col-dark;
   border-radius: 5px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .v--modal-overlay {

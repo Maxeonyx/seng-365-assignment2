@@ -46,7 +46,11 @@ export default {
         contentType: 'application/json',
         success: (data) => {
           this.$emit('login', {
-            session: data,
+            session: {
+              id: data.id,
+              token: data.token,
+              username: this.username
+            },
             redirect: {
               to: this.redirectTo,
               params: this.redirectParams

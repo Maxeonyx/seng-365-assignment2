@@ -95,9 +95,17 @@ export default {
             method: 'POST',
             contentType: 'application/json',
             success: (data) => {
-              localStorage.setItem('session', JSON.stringify(data));
-              this.$emit('login');
-              this.$router.push({name: this.redirectTo, params: this.redirectParams})
+              this.$emit('login', {
+                session: {
+                  id: data.id,
+                  token: data.token,
+                  username: this.username
+                },
+                redirect: {
+                  to: this.redirectTo,
+                  params: this.redirectParams
+                }
+              });
             },
             error: (xhr, status, error) => {
               this.error = "Network Error";

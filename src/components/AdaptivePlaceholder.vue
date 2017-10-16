@@ -1,9 +1,10 @@
 <template>
   <div class="adaptive-panel">
       <!-- input must have an required attribute -->
-      <input @input="$emit('input', $event.target.value)" :value="value" :type="type" :name="fieldID" :id="fieldID" :class="valid + ' adaptive-input ' + theme" :required="required">
+      <textarea v-if="textarea" @input="$emit('input', $event.target.value)" :value="value" :type="type" :name="fieldID" :id="fieldID" :class="valid + ' adaptive-input ' + theme + ' ' + textarea" :required="required"></textarea>
+      <input v-else @input="$emit('input', $event.target.value)" :value="value" :type="type" :name="fieldID" :id="fieldID" :class="valid + ' adaptive-input ' + theme + ' ' + textarea" :required="required">
       <!-- labels must have placeholder and alt attributes -->
-      <label class="adaptive-label" :for="fieldID" :placeholder="title" :alt="errorText || title"></label>
+      <label class="adaptive-label" :for="fieldID" :placeholder="title" :alt="errorText || altTitle"></label>
   </div>
 </template>
 
@@ -11,6 +12,9 @@
 export default {
   name: "adaptivePlaceholder",
   props: {
+    textarea: {
+      default: ""
+    },
     'theme': String,
     'required': String,
     'title': String,
@@ -59,13 +63,18 @@ export default {
   @import "../css/_adaptive-placeholders";
 
   $defaults: (
-    height: 1.8em,
+    height: 2em,
     margin: 0.5em,
     border: 3px,
     border-radius: 0.3em,
     font-size: 1.5em,
     textarea: false
   );
+  $textarea: (
+    height: 15em,
+    textarea: true
+  );
+
   $dark: (
     placeholder-background-color: $col-dark,
     border-color: $col-light,
@@ -84,13 +93,42 @@ export default {
     active-color: $col-orange,
     valid-color: $col-red
   );
+  .adaptive-panel {
+    width: 18em;
+    padding: 0.6em;
+  }
+
+  .adaptive-panel.long {
+    width: 100%;
+  }
+  .adaptive-panel.title {
+    font-size: 2em !important;
+  }
+  .adaptive-panel.small {
+    font-size: 0.8em !important;
+  }
+
   .adaptive-label {
+    // position: absolute;
+    // top: 2.4em;
+    // left: 1.8em;
     pointer-events: none;
     font-family: 'Architects Daughter', cursive;
-    //font-size: 1.5em !important;
+    font-size: 1.5em !important;
+    margin-bottom: 0 !important;
   }
+  .adaptive-panel.long .adaptive-input {
+    text-align: center;
+    border-width: 2px !important;
+  }
+
+  .adaptive-panel.textarea .adaptive-input {
+    text-align: left;
+    border-width: 2px !important;
+  }
+
   .adaptive-input.light {
-    width: 10em;
+    width: 100%;
     color: $col-dark;
   }
 
@@ -101,9 +139,17 @@ export default {
   .adaptive-input.light.invalid {
     @include adaptive-placeholder(map-merge(map-merge($defaults, $light), $invalid));
   }
+
+  .adaptive-input.light.valid.textarea {
+    @include adaptive-placeholder(map-merge(map-merge(map-merge($defaults, $light), $valid), $textarea));
+  }
+
+  .adaptive-input.light.invalid.textarea {
+    @include adaptive-placeholder(map-merge(map-merge(map-merge($defaults, $light), $invalid), $textarea));
+  }
   // Calling adaptive placeholder for input
   .adaptive-input.dark {
-    width: 10em;
+    width: 100%;
     color: $col-light;
   }
   .adaptive-input.dark.valid {
@@ -112,6 +158,13 @@ export default {
 
   .adaptive-input.dark.invalid {
     @include adaptive-placeholder(map-merge(map-merge($defaults, $dark), $invalid));
+  }
+  .adaptive-input.dark.valid.textarea {
+    @include adaptive-placeholder(map-merge(map-merge(map-merge($defaults, $dark), $valid), $textarea));
+  }
+
+  .adaptive-input.dark.invalid.textarea {
+    @include adaptive-placeholder(map-merge(map-merge(map-merge($defaults, $dark), $invalid), $textarea));
   }
 
 </style>
